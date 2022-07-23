@@ -57,7 +57,6 @@ lucReq.onload = async function(e) {
     linkElement.setAttribute("class", "mr-3")
     let imgElement = document.createElement("img");
     imgElement.setAttribute("src", BD.img);
-    imgElement.setAttribute("style", "width: 100%;");
     imgElement.setAttribute("class", "rounded");
     linkElement.appendChild(imgElement);
     div.appendChild(linkElement);

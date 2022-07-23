@@ -1,11 +1,16 @@
-.form-check-input{
-  width: 50px;
-}
-
 a{
   text-decoration: none;
 }
 
 #Resaux{
   height: 100px;
+}
+
+#BD div a img{
+  width: 95%;
+  transition: width .15s ease-in-out;
+}
+#BD div a img:hover{
+  width: 100%;
+  transition: width .15s ease-in-out;
 }
