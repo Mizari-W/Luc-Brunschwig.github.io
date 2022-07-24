@@ -1,4 +1,5 @@
 var divBD = document.querySelector("#BD"); // récupération de l'emplacement des BDs
+var divLoad = divBD.querySelector(".lds-ring"); // récupération de la div de chargement (pour la delete après)
 var allBDs = []; // tableau pour stocker les BDs (objets)
 var lucReq = new XMLHttpRequest(); // objet pour fair eles requêtes http
 
@@ -19,6 +20,7 @@ lucReq.onload = async function(e) {
     if (items[0].querySelector(".ico").querySelector("img").getAttribute("src").endsWith("France.png")) {
       // on récupère le lien pour avoir des infos sur la BD en question
       var link = items[0].querySelector(".serie").querySelector("a").getAttribute("href");
+      link = link.replace(".html", "__10000.html"); // on ajoute "__10000" pour afficher toutes les BDs
       BD.link = link; // on remplit l'objet en ajoutant l'attribut "link"
 
       // on récupère son nom ça peut être bien
@@ -34,21 +36,35 @@ lucReq.onload = async function(e) {
       var bdReq = new XMLHttpRequest();
       bdReq.open("GET", link, true);
       bdReq.responseType = "document";
-      bdReq.onload = function (e) {
+      bdReq.onload = async function (e) {
         var documentBD = bdReq.response; // page de la BD
-        // récupération de l'image de couv (du tome 1)
-        var linkImg = documentBD.querySelector(".liste-albums").querySelector(".couv").querySelector("img").getAttribute("src");
-        linkImg = linkImg.replace("cache/thb_couv", "media/Couvertures");
+        var allNodes = Array.prototype.slice.call(documentBD.querySelector(".liste-albums").childNodes); // on récupère la liste des BDs \...
+        var listBDs = allNodes.filter(item => item.nodeName === "LI"); // .../
+        var linkImg = ""; // on prépare la variable
+        // on parcour la liste pour trouver celle qui a été faite par Luc (si c'est pas sa série, sinon on garde la première)
+        for (var i = 0; i < listBDs.length; i++) {
+          await until(_ => listBDs[i].querySelector(".infos") != null);
+          await until(_ => listBDs[i].querySelector(".infos").children.length > 0);
 
+          if(listBDs[i].querySelector(".infos").innerText.includes("Brunschwig, Luc")){
+            // récupération de l'image de couv (du tome 1 ou du tome fait par Luc)
+            linkImg = listBDs[i].querySelector(".couv").querySelector("img").getAttribute("src");
+            break;
+          }
+        }
+        // await until(_ => linkImg != "");
+        linkImg = linkImg.replace("cache/thb_couv", "media/Couvertures"); // on arrange l'URL pour avoir l'image en grand
         BD.img = linkImg; // on ajoute l'attribut "img"
         allBDs.push(BD); // on ajoute la BD au tableau
       }
       bdReq.send();
     }
   });
+  // on attend que la liste soit remplie
   await until(_ => allBDs.length > 0);
+  // tie de la liste par date
   allBDs.sort((a, b) => a.date - b.date);
-  allBDs.forEach(BD => {
+  await allBDs.forEach(BD => {
     let div = document.createElement("div");
     div.setAttribute("class", "col-lg-2 text-center text-break");
     let linkElement = document.createElement("a");
@@ -65,7 +81,7 @@ lucReq.onload = async function(e) {
     div.appendChild(pElement);
     divBD.appendChild(div);
   });
-
+  divLoad.remove();
 }
 lucReq.send();
 
