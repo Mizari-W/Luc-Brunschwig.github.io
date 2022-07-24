@@ -67,15 +67,18 @@ lucReq.onload = async function(e) {
   await allBDs.forEach(BD => {
     let div = document.createElement("div");
     div.setAttribute("class", "col-lg-2 text-center text-break");
-    let linkElement = document.createElement("a");
-    linkElement.setAttribute("href", BD.link);
-    linkElement.setAttribute("target", "_blank");
-    linkElement.setAttribute("class", "mr-3")
+    div.setAttribute("data-bs-toggle", "modal");
+    div.setAttribute("data-bs-target", "#modal");
+    // let linkElement = document.createElement("a");
+    // linkElement.setAttribute("href", BD.link);
+    // linkElement.setAttribute("target", "_blank");
+    // linkElement.setAttribute("class", "mr-3")
     let imgElement = document.createElement("img");
     imgElement.setAttribute("src", BD.img);
     imgElement.setAttribute("class", "rounded");
-    linkElement.appendChild(imgElement);
-    div.appendChild(linkElement);
+    // linkElement.appendChild(imgElement);
+    // div.appendChild(linkElement);
+    div.appendChild(imgElement);
     let pElement = document.createElement("p");
     pElement.innerText = BD.name;
     div.appendChild(pElement);
