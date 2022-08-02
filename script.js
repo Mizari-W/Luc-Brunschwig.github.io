@@ -6,7 +6,12 @@ if (localStorage['allBDs'] === undefined) {
   localStorage['allBDs'] = "";
   var allBDs = [];
 } else {
-  var allBDs = JSON.parse(localStorage['allBDs']);
+  try {
+    var allBDs = JSON.parse(localStorage['allBDs']);
+  } catch (e) {
+    localStorage['allBDs'] = "";
+    var allBDs = [];
+  }
 }
 
 lucReq.open("GET", "https://www.bedetheque.com/auteur-4544-BD-Brunschwig-Luc.html", true); // requête sur la page de Luc Brunschwig
