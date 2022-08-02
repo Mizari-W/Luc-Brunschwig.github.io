@@ -81,7 +81,7 @@ lucReq.onreadystatechange = async function(e) {
       }
     });
     // on attend que la liste soit remplie
-    await until(_ => allBDs.length > 0);
+    await until(_ => allBDs.length > 20);
     // on enregistre la liste en local
     localStorage["allBDs"] = JSON.stringify(allBDs);
     // tie de la liste par date
