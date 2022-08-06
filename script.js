@@ -1,16 +1,18 @@
 var divBD = document.querySelector("#BD"); // récupération de l'emplacement des BDs
-var divLoad = divBD.querySelector(".lds-ring"); // récupération de la div de chargement (pour la delete après)
+var divModal = document.querySelector("#MODALS"); // récupération de l'emplacment des modals
 var lucReq = new XMLHttpRequest(); // objet pour fair eles requêtes http
-if (localStorage['allBDs'] === undefined) {
+
+// magouilles pour que ça se passe bien xD
+if (localStorage['allSeries'] === undefined) {
   // tableau pour stocker les BDs (objets)
-  localStorage['allBDs'] = "";
-  var allBDs = [];
+  localStorage['allSeries'] = "";
+  var allSeries = [];
 } else {
   try {
-    var allBDs = JSON.parse(localStorage['allBDs']);
+    var allSeries = JSON.parse(localStorage['allSeries']);
   } catch (e) {
-    localStorage['allBDs'] = "";
-    var allBDs = [];
+    localStorage['allSeries'] = "";
+    var allSeries = [];
   }
 }
 
@@ -19,13 +21,14 @@ lucReq.responseType = "document"; // on veut une réponse de type "document"
 
 // traitement des données
 lucReq.onreadystatechange = async function(e) {
+  // quand la page a finie de load (c'pas tout a fait vrai mais bon)
   if (this.readyState == 4){
     var documentLuc = lucReq.response; // récupération de la page
-    // on cherche le tableau qui contient les BDs et on récupère toutes les lignes
+    // on cherche le tableau qui contient les séries et on récupère toutes les lignes
     var lines = documentLuc.querySelector("table").querySelector("tbody").querySelectorAll("tr");
     // on parcour les lignes
     lines.forEach(line => {
-      var BD  = {}; // objet BD qui sera stocké dans le tableau
+      var Serie  = {}; // objet Serie qui sera stocké dans le tableau
 
       // on stock tous les éléments dans une variable (au cas ou)
       var items = line.querySelectorAll("td");
@@ -34,20 +37,24 @@ lucReq.onreadystatechange = async function(e) {
         // on récupère son nom ça peut être bien
         var name = items[0].querySelector(".serie").innerText;
 
-        if (allBDs.find(bd => bd.name === name) !== undefined) {
-          BD = allBDs.find(bd => bd.name === name);
-        } else {
-          BD.name = name; // on ajoute l'attribut "name"
+        // Si la série est déjà enregistré en local, ça sert à rien de refaire une requête dessus (et si y a pas de nouvelle sortie)
+        if (allSeries.find(serie => serie.name === name) === undefined || allSeries.find(serie => serie.name === name).dateFin !== parseInt(items[0].innerText.replace(/\D/g, ""), 10)) {
+          Serie.name = name; // on ajoute l'attribut "name"
 
-          // on récupère le lien pour avoir des infos sur la BD en question
+          // on récupère le lien pour avoir des infos sur la série en question
           var link = items[0].querySelector(".serie").querySelector("a").getAttribute("href");
-          link = link.replace(".html", "__10000.html"); // on ajoute "__10000" pour afficher toutes les BDs
-          BD.link = link; // on remplit l'objet en ajoutant l'attribut "link"
+          link = link.replace(".html", "__10000.html"); // on ajoute "__10000" pour avoir toutes les BDs sur la page
+          Serie.link = link; // on remplit l'objet en ajoutant l'attribut "link"
 
-          // on récupère la date de sortie (pour faire un trie plus tard)
-          var date = items[1].innerText;
-          date = date.replace(/\D/g, ""); // y avait un truc bizarre dans la string du coup je fais en sorte de récupérer que les chiffres
-          BD.date = parseInt(date, 10); // on ajoute l'attribut "date" converti en int
+          // on récupère la date de début de sortie (pour faire un trie plus tard)
+          var dateDeb = items[1].innerText;
+          dateDeb = dateDeb.replace(/\D/g, ""); // il y avait un truc bizarre dans la string du coup je fais en sorte de récupérer que les chiffres
+          Serie.dateDeb = parseInt(dateDeb, 10); // on ajoute l'attribut "dateDeb" converti en int
+
+          // on récupère la date de fin de sortie (pour vérifier plus tard qu'il n'y a pas une nouvelle BD)
+          var dateFin = items[2].innerText;
+          dateFin = dateFin.replace(/\D/g, ""); // il y avait un truc bizarre dans la string du coup je fais en sorte de récupérer que les chiffres
+          Serie.dateFin = parseInt(dateFin, 10); // on ajoute l'attribut "dateFin" converti en int
 
           // récupération des données sur la BD
           var bdReq = new XMLHttpRequest();
@@ -72,8 +79,8 @@ lucReq.onreadystatechange = async function(e) {
               }
               // await until(_ => linkImg != "");
               linkImg = linkImg.replace("cache/thb_couv", "media/Couvertures"); // on arrange l'URL pour avoir l'image en grand
-              BD.img = linkImg; // on ajoute l'attribut "img"
-              allBDs.push(BD); // on ajoute la BD au tableau
+              Serie.img = linkImg; // on ajoute l'attribut "img"
+              allSeries.push(Serie); // on ajoute la BD au tableau
             }
           }
           bdReq.send();
@@ -81,12 +88,13 @@ lucReq.onreadystatechange = async function(e) {
       }
     });
     // on attend que la liste soit remplie
-    await until(_ => allBDs.length > 20);
+    await until(_ => allSeries.length > 20);
+    // trie de la liste par date
+    await allSeries.sort((a, b) => a.dateDeb - b.dateDeb);
     // on enregistre la liste en local
-    localStorage["allBDs"] = JSON.stringify(allBDs);
-    // tie de la liste par date
-    allBDs.sort((a, b) => a.date - b.date);
-    await ShowBDs(allBDs);
+    localStorage["allSeries"] = JSON.stringify(allSeries);
+    // affichage des BDs
+    await ShowBDs(allSeries);
   }
 }
 lucReq.send();
@@ -96,29 +104,38 @@ lucReq.send();
 
 
 
-async function ShowBDs(BDs) {
-  await BDs.forEach(BD => {
-    let div = document.createElement("div");
-    div.setAttribute("class", "col-lg-2 text-center text-break");
-    div.setAttribute("data-bs-toggle", "modal");
-    div.setAttribute("data-bs-target", "#modal");
-    // let linkElement = document.createElement("a");
-    // linkElement.setAttribute("href", BD.link);
-    // linkElement.setAttribute("target", "_blank");
-    // linkElement.setAttribute("class", "mr-3")
-    let imgElement = document.createElement("img");
-    imgElement.setAttribute("src", BD.img);
-    imgElement.setAttribute("class", "rounded");
-    // linkElement.appendChild(imgElement);
-    // div.appendChild(linkElement);
-    div.appendChild(imgElement);
-    let pElement = document.createElement("p");
-    pElement.innerText = BD.name;
-    div.appendChild(pElement);
-    divBD.appendChild(div);
 
-    divLoad.remove();
-  });
+
+
+
+async function ShowBDs(series) {
+  for (var i = 0; i < series.length; i++) {
+    divBD.innerHTML += `<div class="col-lg-2 text-center text-break" data-bs-toggle="modal" data-bs-target="#bd${i}">
+        <img class="rounded" src="${series[i].img}" alt="${series[i].name}">
+        <p>${series[i].name}</p>
+      </div>`;
+
+    divModal.innerHTML += `<div class="modal fade" id="bd${i}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content bg-dark">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="modal-body text-center">
+            <h1 class="modal-title" id="staticBackdropLabel">${series[i].name}</h1>
+            <div class="divider-custom">
+              <div class="divider-custom-line"></div>
+              <div class="divider-custom-icon"><i class="fa-solid fa-book"></i></div>
+              <div class="divider-custom-line"></div>
+            </div>
+            <a href="${series[i].link}" rel="nofollow" target="_blank">
+              <img class="modal-img rounded" src="${series[i].img}" alt="${series[i].name}">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>`
+  }
+  var divLoad = divBD.querySelector(".lds-ring"); // récupération de la div de chargement (pour la delete après)
+  divLoad.remove(); // delete le load
 }
 
 function until(conditionFunction) {

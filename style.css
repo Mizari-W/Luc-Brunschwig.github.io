@@ -32,8 +32,40 @@ a{
 
 .btn-close{
   filter: invert(1);
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 1;
 }
 
+.modal-img{
+  height: 500px;
+}
+
+.divider-custom {
+    margin: 1.25rem 0 1.5rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.divider-custom .divider-custom-line:first-child {
+    margin-right: 1rem;
+}
+.divider-custom .divider-custom-line:last-child {
+    margin-left: 1rem;
+}
+.divider-custom .divider-custom-line {
+    width: 100%;
+    max-width: 7rem;
+    height: 0.25rem;
+    background-color: #fff;
+    border-radius: 1rem;
+    border-color: #fff!important;
+}
+.divider-custom .divider-custom-icon {
+    font-size: 2rem;
+}
 
 
 /* --- LOADING --- */
