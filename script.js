@@ -123,7 +123,7 @@ async function ShowBDs(series) {
             <h1 class="modal-title" id="staticBackdropLabel">${series[i].name}</h1>
             <div class="divider-custom">
               <div class="divider-custom-line"></div>
-              <div class="divider-custom-icon"><i class="fa-solid fa-book"></i></div>
+              <div class="divider-custom-icon"><i class="fa-solid fa-book-open"></i></div>
               <div class="divider-custom-line"></div>
             </div>
             <a href="${series[i].link}" rel="nofollow" target="_blank">
