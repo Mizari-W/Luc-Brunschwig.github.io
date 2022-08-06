@@ -64,7 +64,7 @@ lucReq.onreadystatechange = async function(e) {
             if (this.readyState == 4){
               var documentBD = bdReq.response; // page de la BD
               var allNodes = Array.prototype.slice.call(documentBD.querySelector(".liste-albums").childNodes); // on récupère la liste des BDs \...
-              var listBDs = allNodes.filter(item => item.nodeName === "LI"); // .../
+              var listBDs = allNodes.filter(item => item.nodeName === "LI"); // ...\
               var linkImg = ""; // on prépare la variable
               // on parcour la liste pour trouver celle qui a été faite par Luc (si c'est pas sa série, sinon on garde la première)
               for (var i = 0; i < listBDs.length; i++) {
@@ -129,6 +129,9 @@ async function ShowBDs(series) {
             <a href="${series[i].link}" rel="nofollow" target="_blank">
               <img class="modal-img rounded" src="${series[i].img}" alt="${series[i].name}">
             </a>
+            <br>
+            <br>
+            <br>
           </div>
         </div>
       </div>
