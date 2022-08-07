@@ -38,7 +38,7 @@ lucReq.onreadystatechange = async function(e) {
         var name = items[0].querySelector(".serie").innerText;
 
         // Si la série est déjà enregistré en local, ça sert à rien de refaire une requête dessus (et si y a pas de nouvelle sortie)
-        if (allSeries.find(serie => serie.name === name) === undefined || allSeries.find(serie => serie.name === name).dateFin !== parseInt(items[0].innerText.replace(/\D/g, ""), 10) || allSeries.find(serie => serie.name === name).BDs === undefined) {
+        if (allSeries.find(serie => serie.name === name) === undefined || allSeries.find(serie => serie.name === name).dateFin !== parseInt(items[2].innerText.replace(/\D/g, ""), 10) || allSeries.find(serie => serie.name === name).BDs === undefined) {
           Serie.name = name; // on ajoute l'attribut "name"
 
           // on récupère le lien pour avoir des infos sur la série en question
