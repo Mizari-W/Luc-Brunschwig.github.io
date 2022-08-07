@@ -38,7 +38,7 @@ lucReq.onreadystatechange = async function(e) {
         var name = items[0].querySelector(".serie").innerText;
 
         // Si la série est déjà enregistré en local, ça sert à rien de refaire une requête dessus (et si y a pas de nouvelle sortie)
-        if (allSeries.find(serie => serie.name === name) === undefined || allSeries.find(serie => serie.name === name).dateFin !== parseInt(items[0].innerText.replace(/\D/g, ""), 10)) {
+        if (allSeries.find(serie => serie.name === name) === undefined || allSeries.find(serie => serie.name === name).dateFin !== parseInt(items[0].innerText.replace(/\D/g, ""), 10) || allSeries.find(serie => serie.name === name).BDs === undefined) {
           Serie.name = name; // on ajoute l'attribut "name"
 
           // on récupère le lien pour avoir des infos sur la série en question
@@ -66,15 +66,116 @@ lucReq.onreadystatechange = async function(e) {
               var allNodes = Array.prototype.slice.call(documentBD.querySelector(".liste-albums").childNodes); // on récupère la liste des BDs \...
               var listBDs = allNodes.filter(item => item.nodeName === "LI"); // ...\
               var linkImg = ""; // on prépare la variable
-              // on parcour la liste pour trouver celle qui a été faite par Luc (si c'est pas sa série, sinon on garde la première)
+              Serie.BDs = []; // on prépare la liste des BDs de la série
+              // on parcour la liste pour chopper des infos sur les BDs
+              let findImg = false;
               for (var i = 0; i < listBDs.length; i++) {
                 await until(_ => listBDs[i].querySelector(".infos") != null);
                 await until(_ => listBDs[i].querySelector(".infos").children.length > 0);
 
+                // on s'en occupe que si c'est un BD de luc
                 if(listBDs[i].querySelector(".infos").innerText.includes("Brunschwig, Luc")){
+                  let BD = {}; // on prépare l'objet BD qui va être ajouté à la liste
+                  let albumMain = listBDs[i].querySelector(".album-main");
                   // récupération de l'image de couv (du tome 1 ou du tome fait par Luc)
-                  linkImg = listBDs[i].querySelector(".couv").querySelector("img").getAttribute("src");
-                  break;
+                  if (!findImg){
+                    linkImg = listBDs[i].querySelector(".couv").querySelector("img").getAttribute("src");
+                    findImg = true;
+                  }
+                  // récupération du titre de la BD (et j'vire les espèces de blanc bizarre 🤔)
+                  BD.name = albumMain.querySelector(".titre").querySelector(".numa").innerText.replace(new RegExp("^\s*|\s*[.]\s*|\s*$", "g"), "");
+                  // récupération de la couv'
+                  BD.img = listBDs[i].querySelector(".couv").querySelector("img").getAttribute("src");
+                  // récupération de la note
+                  BD.note = albumMain.querySelector(".eval").querySelector(".message").innerText;
+                  // préparation de la liste des scénaristes
+                  BD.scenar = [];
+                  // préparation de la liste des dessinateurs
+                  BD.dessin = [];
+                  // préparation de la liste des coloristes
+                  BD.colo = [];
+
+                  let scenarStart = false; // variable qui permet de filtrer les scénaristes
+                  let dessinStart = false; // variable qui permet de filtrer les dessinateurs
+                  let coloStart = false; // variable qui permet de filtrer les coloristes
+                  // on parcour les éléments
+                  albumMain.querySelector(".infos").querySelectorAll("li").forEach(async li => {
+                    // on détecte le début de la liste des scénaristes
+                    if (li.querySelector("label").innerText === "Scénario :"){
+                      scenarStart = true;
+                    }
+
+                    // tant qu'on est dans les scénaristes on récupère les noms et les liens
+                    if (scenarStart){
+                      if (li.querySelector("label").innerText !== " "){
+                        scenarStart = false;
+                      } else if (li.querySelector("span").innerText !== "<Collectif>") {
+                        let scenar = {
+                          name: li.querySelector("span").innerText,
+                          link: li.querySelector("a").getAttribute("href")
+                        }
+                        await BD.scenar.push(scenar);
+                      }
+                    }
+
+                    // on détecte le début des dessinateurs
+                    if (li.querySelector("label").innerText === "Dessin :"){
+                      dessinStart = true;
+                    }
+
+                    // tant qu'on est dans les dessinateurs on récupère les noms et les liens
+                    if (dessinStart){
+                      if (li.querySelector("label").innerText !== " "){
+                        dessinStart = false;
+                      } else if (li.querySelector("span").innerText !== "<Collectif>") {
+                        let dessin = {
+                          name: li.querySelector("span").innerText,
+                          link: li.querySelector("a").getAttribute("href")
+                        }
+                        await BD.dessin.push(dessin);
+                      }
+                    }
+
+                    // on détecte le début des coloristes
+                    if (li.querySelector("label").innerText === "Couleurs :"){
+                      coloStart = true;
+                    }
+
+                    // tant qu'on est dans les coloristes on récupère les noms et les liens
+                    if (coloStart){
+                      if (li.querySelector("label").innerText !== " "){
+                        coloStart = false;
+                      } else if (li.querySelector("span").innerText !== "<Collectif>") {
+                        let colo = {
+                          name: li.querySelector("span").innerText,
+                          link: li.querySelector("a").getAttribute("href")
+                        }
+                        await BD.colo.push(colo);
+                      }
+                    }
+
+                    // on récupère l'éditeur
+                    if (li.querySelector("label").innerText === "Editeur : "){
+                      BD.editeur = li.querySelector("span").innerText;
+                    }
+
+                    // on récupère la collection (si il y a)
+                    if (li.querySelector("label").innerText === "Collection : "){
+                      BD.collection = li.querySelector("a").innerText;
+                    }
+                  });
+
+                  BD.buy = []; // préparation de la list des liens pour acheter
+                  // récupération de la liste des boutons pour acheter
+                  let buttons = listBDs[i].querySelector(".album-online").querySelectorAll(".btAchat .buttonflat .green");
+                  buttons.forEach(async button => {
+                    let shop = {
+                      name: button.getAttribute("title").split(" ").at(-1),
+                      link: button.getAttribute("href")
+                    }
+                    await BD.buy.push(shop);
+                  });
+                  Serie.BDs.push(BD);
                 }
               }
               // await until(_ => linkImg != "");
@@ -129,13 +230,38 @@ async function ShowBDs(series) {
             <a href="${series[i].link}" rel="nofollow" target="_blank">
               <img class="modal-img rounded" src="${series[i].img}" alt="${series[i].name}">
             </a>
-            <br>
-            <br>
-            <br>
+
+            <h2 class="mt-3">BDs de la série</h2>
+            <div class="divider-custom">
+              <div class="divider-custom-line"></div>
+              <div class="divider-custom-icon"><i class="fa-solid fa-book-open"></i></div>
+              <div class="divider-custom-line"></div>
+            </div>
+
+            <div class="BDs">
+
+            </div>
           </div>
         </div>
       </div>
     </div>`
+
+    for (var j = 0; j < series[i].BDs.length; j++) {
+      divModal.querySelector(`#bd${i}`).querySelector(".BDs").innerHTML += `
+        <h3>${series[i].BDs[j].name}</h3>
+        <div class="row">
+          <div class="col-lg-6">
+            <img src="${series[i].BDs[j].img}" style="float: right;">
+          </div>
+          <div class="col-lg-6">
+            <div style="float:left; text-align: left;">
+              <p>${series[i].BDs[j].note}</p>
+              <p>Editeur : ${series[i].BDs[j].editeur}</p>`
+        +    (series[i].BDs[j].collection !== undefined?`<p>Collection : ${series[i].BDs[j].collection}</p>`:"")
+        +  `</div>
+          </div>
+        </div>`;
+    }
   }
   var divLoad = divBD.querySelector(".lds-ring"); // récupération de la div de chargement (pour la delete après)
   divLoad.remove(); // delete le load
