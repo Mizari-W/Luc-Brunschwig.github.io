@@ -25,8 +25,13 @@ a{
   }
 }
 @media screen and (min-width: 992px) {
-  #LucImg{
+  #LucImg, .bd-modal-img{
     float: right!important;
+  }
+
+  .bd-modal-txt{
+    float:left;
+    text-align: left;
   }
 }
 

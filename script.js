@@ -83,77 +83,14 @@ lucReq.onreadystatechange = async function(e) {
                     findImg = true;
                   }
                   // récupération du titre de la BD (et j'vire les espèces de blanc bizarre 🤔)
-                  BD.name = albumMain.querySelector(".titre").querySelector(".numa").innerText.replace(new RegExp("^\s*|\s*[.]\s*|\s*$", "g"), "");
+                  BD.name = albumMain.querySelector(".titre").querySelector("span").innerText.split(".")[1].replace(/\s*/g, "");
                   // récupération de la couv'
                   BD.img = listBDs[i].querySelector(".couv").querySelector("img").getAttribute("src");
                   // récupération de la note
                   BD.note = albumMain.querySelector(".eval").querySelector(".message").innerText;
-                  // préparation de la liste des scénaristes
-                  BD.scenar = [];
-                  // préparation de la liste des dessinateurs
-                  BD.dessin = [];
-                  // préparation de la liste des coloristes
-                  BD.colo = [];
 
-                  let scenarStart = false; // variable qui permet de filtrer les scénaristes
-                  let dessinStart = false; // variable qui permet de filtrer les dessinateurs
-                  let coloStart = false; // variable qui permet de filtrer les coloristes
                   // on parcour les éléments
                   albumMain.querySelector(".infos").querySelectorAll("li").forEach(async li => {
-                    // on détecte le début de la liste des scénaristes
-                    if (li.querySelector("label").innerText === "Scénario :"){
-                      scenarStart = true;
-                    }
-
-                    // tant qu'on est dans les scénaristes on récupère les noms et les liens
-                    if (scenarStart){
-                      if (li.querySelector("label").innerText !== " "){
-                        scenarStart = false;
-                      } else if (li.querySelector("span").innerText !== "<Collectif>") {
-                        let scenar = {
-                          name: li.querySelector("span").innerText,
-                          link: li.querySelector("a").getAttribute("href")
-                        }
-                        await BD.scenar.push(scenar);
-                      }
-                    }
-
-                    // on détecte le début des dessinateurs
-                    if (li.querySelector("label").innerText === "Dessin :"){
-                      dessinStart = true;
-                    }
-
-                    // tant qu'on est dans les dessinateurs on récupère les noms et les liens
-                    if (dessinStart){
-                      if (li.querySelector("label").innerText !== " "){
-                        dessinStart = false;
-                      } else if (li.querySelector("span").innerText !== "<Collectif>") {
-                        let dessin = {
-                          name: li.querySelector("span").innerText,
-                          link: li.querySelector("a").getAttribute("href")
-                        }
-                        await BD.dessin.push(dessin);
-                      }
-                    }
-
-                    // on détecte le début des coloristes
-                    if (li.querySelector("label").innerText === "Couleurs :"){
-                      coloStart = true;
-                    }
-
-                    // tant qu'on est dans les coloristes on récupère les noms et les liens
-                    if (coloStart){
-                      if (li.querySelector("label").innerText !== " "){
-                        coloStart = false;
-                      } else if (li.querySelector("span").innerText !== "<Collectif>") {
-                        let colo = {
-                          name: li.querySelector("span").innerText,
-                          link: li.querySelector("a").getAttribute("href")
-                        }
-                        await BD.colo.push(colo);
-                      }
-                    }
-
                     // on récupère l'éditeur
                     if (li.querySelector("label").innerText === "Editeur : "){
                       BD.editeur = li.querySelector("span").innerText;
@@ -164,17 +101,7 @@ lucReq.onreadystatechange = async function(e) {
                       BD.collection = li.querySelector("a").innerText;
                     }
                   });
-
-                  BD.buy = []; // préparation de la list des liens pour acheter
-                  // récupération de la liste des boutons pour acheter
-                  let buttons = listBDs[i].querySelector(".album-online").querySelectorAll(".btAchat .buttonflat .green");
-                  buttons.forEach(async button => {
-                    let shop = {
-                      name: button.getAttribute("title").split(" ").at(-1),
-                      link: button.getAttribute("href")
-                    }
-                    await BD.buy.push(shop);
-                  });
+                  // ajout de la BD dans la série
                   Serie.BDs.push(BD);
                 }
               }
@@ -248,13 +175,13 @@ async function ShowBDs(series) {
 
     for (var j = 0; j < series[i].BDs.length; j++) {
       divModal.querySelector(`#bd${i}`).querySelector(".BDs").innerHTML += `
-        <h3>${series[i].BDs[j].name}</h3>
+        <h3 class="mt-2">${series[i].BDs[j].name}</h3>
         <div class="row">
           <div class="col-lg-6">
-            <img src="${series[i].BDs[j].img}" style="float: right;">
+            <img class="bd-modal-img" src="${series[i].BDs[j].img}">
           </div>
           <div class="col-lg-6">
-            <div style="float:left; text-align: left;">
+            <div class="bd-modal-txt">
               <p>${series[i].BDs[j].note}</p>
               <p>Editeur : ${series[i].BDs[j].editeur}</p>`
         +    (series[i].BDs[j].collection !== undefined?`<p>Collection : ${series[i].BDs[j].collection}</p>`:"")
