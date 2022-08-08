@@ -42,7 +42,7 @@
 //     });
 
     // Collapse Navbar
-    var navbarCollapse = function() {
+    window.navbarCollapse = function() {
       if ($("#mainNav").offset().top > 100) {
         $("#mainNav").addClass("navbar-shrink");
       } else {
