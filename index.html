@@ -103,7 +103,7 @@
           <div class="divider-custom-line divider-light"></div>
         </div>
 
-        <div class="rounded" id="Interview">
+        <div class="rounded interview-dark" id="Interview">
           <img class="rounded interview-img-left" src="images/Photo-Luc-B-2.jpg" alt="Luc Brunschwig">
           <p align="justify">
             &#8226; <b>Luc, nous nous étions déjà croisés pour un <a href="https://www.bdtheque.com/interviews/39/luc-brunschwig" rel="nofollow" target="_blank">excellent entretien</a> il y a déjà 8 ans, et nous ne reviendrons pas sur ce que tu nous as dit à l’époque, ou alors, si peu. Mais nous allons parler de l’ensemble de ta carrière, qui atteint le quart de siècle en cet automne 2015. A cette occasion, tu as entamé sur la page Facebook qui t’est consacrée une sorte de mémoire sur cette carrière…</b>
@@ -420,11 +420,13 @@
         let navButton = nav.querySelectorAll("button")[1];
         let dividers = document.querySelectorAll(".divider-custom-line");
         let modals = document.querySelectorAll(".modal-content");
+        let interview = document.querySelector("#Interview");
 
         if (theme === "darkTheme"){
           body.setAttribute("class", "bg-dark text-white");
           nav.setAttribute("class", "navbar navbar-expand-lg bg-light fixed-top text-uppercase");
           navButton.setAttribute("class", "btn btn-outline-dark ms-auto");
+          interview.setAttribute("class", "rounded interview-dark");
           navButton.innerHTML = '<i class="fa-solid fa-jedi"></i>';
           dividers.forEach(divider => divider.setAttribute("class", "divider-custom-line divider-light"));
           modals.forEach(modal => {
@@ -435,6 +437,7 @@
           body.setAttribute("class", "bg-light");
           nav.setAttribute("class", "navbar navbar-dark navbar-expand-lg bg-dark fixed-top text-uppercase text-white");
           navButton.setAttribute("class", "btn btn-outline-light ms-auto");
+          interview.setAttribute("class", "rounded interview-light");
           navButton.innerHTML = '<i class="fa-brands fa-sith"></i>';
           dividers.forEach(divider => divider.setAttribute("class", "divider-custom-line divider-dark"));
           modals.forEach(modal => {

@@ -178,6 +178,27 @@ div.bg-light div.modal-body::-webkit-scrollbar-thumb{
   border-radius: 4px;
 }
 
+
+div.interview-dark::-webkit-scrollbar{
+  width: 10px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0);
+}
+div.interview-dark::-webkit-scrollbar-thumb{
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+div.interview-light::-webkit-scrollbar{
+  width: 10px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0);
+}
+div.interview-light::-webkit-scrollbar-thumb{
+  background-color: #212529;
+  border-radius: 4px;
+}
+
 /* --- LOADING --- */
 
 .lds-ring {
