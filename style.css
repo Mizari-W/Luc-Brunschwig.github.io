@@ -40,7 +40,6 @@ a{
 }
 
 .btn-close{
-  filter: invert(1);
   position: absolute;
   top: 24px;
   right: 24px;
@@ -68,9 +67,15 @@ a{
     width: 100%;
     max-width: 7rem;
     height: 0.25rem;
-    background-color: #fff;
     border-radius: 1rem;
-    border-color: #fff!important;
+}
+.divider-custom .divider-light{
+  background-color: #fff;
+  border-color: #fff!important;
+}
+.divider-custom .divider-dark{
+  background-color: #212529;
+  border-color: #212529!important;
 }
 .divider-custom .divider-custom-icon {
     font-size: 2rem;
@@ -132,16 +137,46 @@ a{
 
 /* --- SCROLL BAR ---*/
 
-*::-webkit-scrollbar{
+body.bg-dark::-webkit-scrollbar{
   width: 10px;
   border-radius: 4px;
   background-color: rgba(0, 0, 0, 0);
 }
-*::-webkit-scrollbar-thumb{
+body.bg-dark::-webkit-scrollbar-thumb{
   background-color: #fff;
   border-radius: 4px;
 }
 
+body.bg-light::-webkit-scrollbar{
+  width: 10px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0);
+}
+body.bg-light::-webkit-scrollbar-thumb{
+  background-color: #212529;
+  border-radius: 4px;
+}
+
+
+div.bg-dark div.modal-body::-webkit-scrollbar{
+  width: 10px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0);
+}
+div.bg-dark div.modal-body::-webkit-scrollbar-thumb{
+  background-color: #fff;
+  border-radius: 4px;
+}
+
+div.bg-light div.modal-body::-webkit-scrollbar{
+  width: 10px;
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0);
+}
+div.bg-light div.modal-body::-webkit-scrollbar-thumb{
+  background-color: #212529;
+  border-radius: 4px;
+}
 
 /* --- LOADING --- */
 

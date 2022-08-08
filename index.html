@@ -30,7 +30,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#BD-section">BDs</a>
             </li>
@@ -42,6 +42,7 @@
             </li>
           </ul>
         </div>
+        <button type="button" class="btn btn-outline-dark ms-auto" onclick="ChangeTheme()"><i class="fa-solid fa-jedi"></i></button>
       </div>
     </nav>
 
@@ -49,9 +50,9 @@
       <section>
         <h1 class="text-center">Sith web de Luc</h1>
         <div class="divider-custom">
-          <div class="divider-custom-line"></div>
+          <div class="divider-custom-line divider-light"></div>
           <div class="divider-custom-icon"><i class="fa-solid fa-book-journal-whills"></i></div>
-          <div class="divider-custom-line"></div>
+          <div class="divider-custom-line divider-light"></div>
         </div>
 
         <div class="row">
@@ -62,11 +63,11 @@
           </div>
           <div class="col-lg-5">
             <h2>Luc Brunschwig</h2>
-            <p>Naît le 03 septembre 1967, à Belfort, dans une famille modeste où rien ne le prédestine à devenir auteur de bande dessinée.</p>
-            <p>C’est son jeune frère Yves, qui le premier se met à remplir ses cahiers de brouillon avec les aventures d’un extra-terrestre nommé TAKOR. Luc, de deux ans son aîné, lui emboîte le pas.</p>
-            <p>Tout se concrétise finalement en 1990 lorsqu’il rencontre le dessinateur Laurent Hirn auquel il propose le scénario du Pouvoir des Innocents.</p>
-            <p>Depuis 30 ans, maintenant, Luc Brunschwig développe un univers très personnel où faits de société et personnages aux psychologies très approfondies se marient dans des récits humanistes où les personnages semblent être en quête de leur place et de ce qu’ils peuvent apporter à la société.</p>
-            <p>Il vit en compagnie de sa femme, de ses deux enfants, d’un chat roux et d’un chien qui se prend pour un poney.</p>
+            <p align="justify">Naît le 03 septembre 1967, à Belfort, dans une famille modeste où rien ne le prédestine à devenir auteur de bande dessinée.</p>
+            <p align="justify">C’est son jeune frère Yves, qui le premier se met à remplir ses cahiers de brouillon avec les aventures d’un extra-terrestre nommé TAKOR. Luc, de deux ans son aîné, lui emboîte le pas.</p>
+            <p align="justify">Tout se concrétise finalement en 1990 lorsqu’il rencontre le dessinateur Laurent Hirn auquel il propose le scénario du Pouvoir des Innocents.</p>
+            <p align="justify">Depuis 30 ans, maintenant, Luc Brunschwig développe un univers très personnel où faits de société et personnages aux psychologies très approfondies se marient dans des récits humanistes où les personnages semblent être en quête de leur place et de ce qu’ils peuvent apporter à la société.</p>
+            <p align="justify">Il vit en compagnie de sa femme, de ses deux enfants, d’un chat roux et d’un chien qui se prend pour un poney.</p>
           </div>
         </div>
       </section>
@@ -74,9 +75,9 @@
       <section id="BD-section">
         <h1 class="text-center">Bandes dessinées</h1>
         <div class="divider-custom">
-          <div class="divider-custom-line"></div>
+          <div class="divider-custom-line divider-light"></div>
           <div class="divider-custom-icon"><i class="fa-solid fa-book-journal-whills"></i></div>
-          <div class="divider-custom-line"></div>
+          <div class="divider-custom-line divider-light"></div>
         </div>
 
         <div class="row" id="BD">
@@ -87,9 +88,9 @@
       <section id="Interview-section">
         <h1 class="text-center">Interview</h1>
         <div class="divider-custom">
-          <div class="divider-custom-line"></div>
+          <div class="divider-custom-line divider-light"></div>
           <div class="divider-custom-icon"><i class="fa-solid fa-book-journal-whills"></i></div>
-          <div class="divider-custom-line"></div>
+          <div class="divider-custom-line divider-light"></div>
         </div>
 
         <div class="rounded" id="Interview">
@@ -348,9 +349,9 @@
       <section id="Resaux-section">
         <h1 class="text-center">Contacts</h1>
         <div class="divider-custom">
-          <div class="divider-custom-line"></div>
+          <div class="divider-custom-line divider-light"></div>
           <div class="divider-custom-icon"><i class="fa-solid fa-book-journal-whills"></i></div>
-          <div class="divider-custom-line"></div>
+          <div class="divider-custom-line divider-light"></div>
         </div>
 
         <div class="row text-center" id="Resaux">
@@ -391,5 +392,47 @@
 
     <script src="script.js" type="text/javascript"></script>
     <script src="nav-script.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var theme = "";
+      if (localStorage['theme'] === undefined) {
+        // tableau pour stocker les BDs (objets)
+        localStorage['theme'] = "darkTheme";
+      } else {
+        theme = localStorage['theme']==="darkTheme"?"light":"darkTheme";
+        ChangeTheme();
+      }
+
+      function ChangeTheme() {
+        theme = theme==="darkTheme"?"light":"darkTheme";
+        localStorage['theme'] = theme;
+        let body = document.querySelector("body");
+        let nav = document.querySelector("nav");
+        let navButton = nav.querySelectorAll("button")[1];
+        let dividers = document.querySelectorAll(".divider-custom-line");
+        let modals = document.querySelectorAll(".modal-content");
+
+        if (theme === "darkTheme"){
+          body.setAttribute("class", "bg-dark text-white");
+          nav.setAttribute("class", "navbar navbar-expand-lg bg-light fixed-top text-uppercase");
+          navButton.setAttribute("class", "btn btn-outline-dark ms-auto");
+          navButton.innerHTML = '<i class="fa-solid fa-jedi"></i>';
+          dividers.forEach(divider => divider.setAttribute("class", "divider-custom-line divider-light"));
+          modals.forEach(modal => {
+            modal.setAttribute("class", "modal-content bg-dark");
+            modal.querySelector(".btn-close").setAttribute("class", "btn-close btn-close-white");
+          });
+        } else {
+          body.setAttribute("class", "bg-light");
+          nav.setAttribute("class", "navbar navbar-dark navbar-expand-lg bg-dark fixed-top text-uppercase text-white");
+          navButton.setAttribute("class", "btn btn-outline-light ms-auto");
+          navButton.innerHTML = '<i class="fa-brands fa-sith"></i>';
+          dividers.forEach(divider => divider.setAttribute("class", "divider-custom-line divider-dark"));
+          modals.forEach(modal => {
+            modal.setAttribute("class", "modal-content bg-light");
+            modal.querySelector(".btn-close").setAttribute("class", "btn-close");
+          });
+        }
+      }
+    </script>
   </body>
 </html>
