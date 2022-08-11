@@ -6,6 +6,10 @@ a{
   text-decoration: none;
 }
 
+p{
+  text-align: justify;
+}
+
 #Resaux{
   height: 100px;
 }
@@ -81,7 +85,7 @@ a{
     font-size: 2rem;
 }
 
-#Interview{
+.interview{
   max-height: 700px;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -104,6 +108,41 @@ a{
   margin: 0 0 0 15px;
   max-width: 25%;
 }
+
+.interview-dark .nav-link {
+    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) white rgba(0, 0, 0, 0)!important;
+    background-color: rgba(33,37,41,1)!important;
+    color: #f8f9fa!important;
+}
+.interview-dark .nav-link.active {
+    border-color: white white rgba(0, 0, 0, 0) white!important;
+    background-color: rgba(33,37,41,1)!important;
+    color: #f8f9fa!important;
+}
+
+.interview-light .nav-link, .interview-light .nav-link.active {
+  color: #212529!important;
+  background-color: rgba(0,0,0,0);
+}
+
+.interview-light .nav-link:hover {
+  border: 1px solid rgba(0,0,0,0)!important;
+}
+
+.interview-light .nav-link.active, .interview-light .nav-link.active:hover {
+  border: 1px solid!important;
+  border-bottom: 1px solid rgb(248,249,250)!important;
+}
+
+.interview-light .nav-tabs {
+  border-bottom: 1px solid!important;
+}
+
+
+
+
+
+
 
 
 /* --- NAV BAR --- */

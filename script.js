@@ -195,7 +195,7 @@ async function ShowBDs(series) {
   divLoad.remove(); // delete le load
 }
 
-function until(conditionFunction) {
+window.until = function(conditionFunction) {
 
   const poll = resolve => {
     if(conditionFunction()) resolve();
