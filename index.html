@@ -868,6 +868,7 @@
         let modals = document.querySelectorAll(".modal-content");
         let interview = document.querySelector("#Interview");
         let story = document.querySelector("#Story");
+        let dropdownMenu = document.querySelector("#StoryTab").querySelector(".dropdown-menu");
 
         if (theme === "darkTheme"){
           body.setAttribute("class", "bg-dark text-white");
@@ -875,6 +876,10 @@
           navButton.setAttribute("class", "btn btn-outline-dark");
           interview.setAttribute("class", "rounded interview interview-dark");
           story.setAttribute("class", "rounded interview interview-dark");
+          dropdownMenu.setAttribute("class", "dropdown-menu bg-dark");
+          dropdownMenu.querySelectorAll("button").forEach(button => {
+            button.setAttribute("class", `dropdown-item text-white ${button.getAttribute("class").includes("active")?"active":""}`);
+          });
           navButton.innerHTML = '<i class="fa-solid fa-jedi"></i>';
           dividers.forEach(divider => divider.setAttribute("class", "divider-custom-line divider-light"));
           modals.forEach(modal => {
@@ -887,6 +892,10 @@
           navButton.setAttribute("class", "btn btn-outline-light");
           interview.setAttribute("class", "rounded interview interview-light");
           story.setAttribute("class", "rounded interview interview-light");
+          dropdownMenu.setAttribute("class", "dropdown-menu bg-light");
+          dropdownMenu.querySelectorAll("button").forEach(button => {
+            button.setAttribute("class", `dropdown-item ${button.getAttribute("class").includes("active")?"active":""}`);
+          });
           navButton.innerHTML = '<i class="fa-brands fa-sith"></i>';
           dividers.forEach(divider => divider.setAttribute("class", "divider-custom-line divider-dark"));
           modals.forEach(modal => {
