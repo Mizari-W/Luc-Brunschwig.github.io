@@ -155,7 +155,31 @@ p{
   background-color: rgb(108,117,125);
 }
 
+.banner{
+  width: 100%;
+  height: 300px;
+  overflow:hidden;
+}
+.banner img{
+  width: 100%;
+  margin: -160px 0px 0px 0px;
+}
 
+.custom-popover{
+  --bs-popover-bg: var(--bs-dark);
+  --bs-popover-body-color: #fff;
+  --bs-popover-max-width: 200px;
+}
+.custom-popover .popover-body{
+  /* overflow: hidden; */
+}
+.custom-popover .popover-body img{
+  width:100px;
+  height: 100px;
+  object-fit: cover;
+  object-position: -50px 0px;
+  /* margin: 0px 0px 0px -10px; */
+}
 
 
 

@@ -64,7 +64,7 @@
         <h1 class="text-center">Sith web de Luc</h1>
         <div class="divider-custom">
           <div class="divider-custom-line divider-light"></div>
-          <div class="divider-custom-icon"><i class="fa-solid fa-book-journal-whills"></i></div>
+          <div class="divider-custom-icon" data-bs-html="true" data-bs-container="body" data-bs-toggle="popover" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-content='<img src="images/Luke.gif">'><i class="fa-solid fa-book-journal-whills"></i></div>
           <div class="divider-custom-line divider-light"></div>
         </div>
 
@@ -399,6 +399,9 @@
           <div class="rounded interview interview-dark" id="Story" style="border: 0px; max-height: 640px; width: 100%;">
             <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="lpdi-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                <div class="banner">
+                  <img src="images/Joshua.jpg" alt="Joshua avec un arc">
+                </div>
                 <h3 class="mt-3">LE POUVOIR DES INNOCENTS</h3>
                 <img class="interview-img-left" src="images/Photo-Luc-Laurent-Jeunes.jpg" alt="Luc et Laurent il y a longtemps">
                 <p>
@@ -432,13 +435,6 @@
                   Sauf que ça a donné le Pouvoir des Innocents, un récit qui 30 ans après semble (de l’avis de pas mal de monde) avoir prédit l’évolution de nos sociétés occidentales contemporaines.<br>
                   Pourquoi ça a marché ? Je suis bien incapable de l’expliquer. Je dirais même que plus les années passent et plus je mesure le gouffre au bord duquel j’ai marché avec Laurent Hirn pendant toute la réalisation de ce récit.<br>
                   J’ai investi cette histoire, bien conscient que j’y entrais avec des centaines voire des milliers de questionnements et quasiment aucune réponse… et que je devais profiter de ce « voyage » pour combler tous les manques que les 22 années précédentes avaient laissés.
-                </p>
-                <hr>
-                <img class="interview-img-left" src="images/Photo-Luc-Laurent-Vieux.jpg" alt="Luc et Laurent il n'y a pas si longtemps">
-                <p>
-                  Mars 2001. Nous sommes, avec Laurent Hirn, à quelques semaines de mettre un point final au POUVOIR DES INNOCENTS. C’est notre première série. La première à laquelle nous allons mettre un point final après 10 années passionnées et passionnantes à faire vivre et évoluer une ribambelle de personnages.<br>
-                  Mais quelque chose cloche, comme si Joshua, Amy, Jessica, Xuan-Mai, Frazzy et les autres refusaient qu’on les abandonne, sans avoir au moins essayé d’imaginer ce que serait la suite de leur histoire.<br>
-                  Alors, avec Laurent, on se voit un après midi et on s’imagine le New-York du Pouvoir 10 ans après les événements.
                 </p>
               </div>
               <div class="tab-pane fade" id="edw-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
@@ -910,6 +906,9 @@
 
         navbarCollapse();
       }
+
+      const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+      const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
     </script>
   </body>
 </html>
