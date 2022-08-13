@@ -24,8 +24,12 @@ p{
   cursor: pointer;
 }
 
-#LucImg{
+#LucImg, #LukeImg{
   width: 300px;
+}
+#LukeImg{
+  left: 225px;
+  transform: rotate(350deg);
 }
 @media screen and (max-width: 991px) {
   #LucImg{
@@ -158,11 +162,9 @@ p{
 .banner{
   width: 100%;
   height: 300px;
-  overflow:hidden;
-}
-.banner img{
-  width: 100%;
-  margin: -160px 0px 0px 0px;
+  background-image: url("images/Joshua.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 .dark-popover{
@@ -178,7 +180,6 @@ p{
   height: 100px;
   object-fit: cover;
   object-position: -50px 0px;
-  /* margin: 0px 0px 0px -10px; */
 }
 
 .light-egg{
@@ -199,6 +200,13 @@ p{
   width: 80px;
   top: 85px;
   right: 500px
+}
+.Luke-egg{
+  position: absolute;
+  background-color: #000;
+  color: #fff;
+  transform: rotate(6deg);
+  padding: 5px;
 }
 
 
