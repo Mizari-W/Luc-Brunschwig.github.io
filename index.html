@@ -64,7 +64,7 @@
         <h1 class="text-center">Sith web de Luc</h1>
         <div class="divider-custom">
           <div class="divider-custom-line divider-light"></div>
-          <div class="divider-custom-icon" data-bs-html="true" data-bs-container="body" data-bs-toggle="popover" data-bs-custom-class="custom-popover" data-bs-placement="bottom" data-bs-content='<img src="images/Luke.gif">'><i class="fa-solid fa-book-journal-whills"></i></div>
+          <div class="divider-custom-icon" data-bs-html="true" data-bs-container="body" data-bs-toggle="popover" data-bs-custom-class="light-popover" data-bs-placement="bottom" data-bs-content='<img src="images/Luke.gif">'><i class="fa-solid fa-book-journal-whills"></i></div>
           <div class="divider-custom-line divider-light"></div>
         </div>
 
@@ -865,6 +865,8 @@
         let interview = document.querySelector("#Interview");
         let story = document.querySelector("#Story");
         let dropdownMenu = document.querySelector("#StoryTab").querySelector(".dropdown-menu");
+        let popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+        let popovers = document.querySelectorAll(".popover");
 
         if (theme === "darkTheme"){
           body.setAttribute("class", "bg-dark text-white");
@@ -884,6 +886,14 @@
               button.setAttribute("class", `dropdown-item text-white ${button.getAttribute("class").includes("active")?"active":""}`);
             });
           }
+          popoverTriggerList.forEach(popover => {
+            popover.setAttribute("data-bs-custom-class","light-popover");
+          });
+          popovers.forEach(popover => {
+            popover.setAttribute("class", "popover light-popover bs-popover-auto fade show");
+          });
+
+
         } else {
           body.setAttribute("class", "bg-light");
           nav.setAttribute("class", "navbar navbar-dark navbar-expand-lg bg-dark fixed-top text-uppercase text-white");
@@ -902,13 +912,33 @@
               button.setAttribute("class", `dropdown-item ${button.getAttribute("class").includes("active")?"active":""}`);
             });
           }
+          popoverTriggerList.forEach(popover => {
+            popover.setAttribute("data-bs-custom-class","dark-popover");
+          });
+          popovers.forEach(popover => {
+            popover.setAttribute("class", "popover dark-popover bs-popover-auto fade show");
+          });
         }
 
         navbarCollapse();
       }
 
       const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
-      const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+      const popoverList = [...popoverTriggerList].map(popoverTriggerEl => {
+        new bootstrap.Popover(popoverTriggerEl);
+        popoverTriggerEl.addEventListener('shown.bs.popover', () => {
+          let popovers = document.querySelectorAll(".popover");
+          if (theme === "darkTheme"){
+            popovers.forEach(popover => {
+              popover.setAttribute("class", "popover light-popover bs-popover-auto fade show");
+            });
+          } else {
+            popovers.forEach(popover => {
+              popover.setAttribute("class", "popover dark-popover bs-popover-auto fade show");
+            });
+          }
+        })
+      });
     </script>
   </body>
 </html>

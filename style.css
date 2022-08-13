@@ -165,15 +165,15 @@ p{
   margin: -160px 0px 0px 0px;
 }
 
-.custom-popover{
+.dark-popover{
   --bs-popover-bg: var(--bs-dark);
-  --bs-popover-body-color: #fff;
   --bs-popover-max-width: 200px;
 }
-.custom-popover .popover-body{
-  /* overflow: hidden; */
+.light-popover{
+  --bs-popover-bg: var(--bs-light);
+  --bs-popover-max-width: 200px;
 }
-.custom-popover .popover-body img{
+.light-popover .popover-body img, .dark-popover .popover-body img{
   width:100px;
   height: 100px;
   object-fit: cover;
