@@ -3,6 +3,14 @@ async function Redim() {
   let dropdown = navTab.querySelector(".dropdown");
   await until(_ => dropdown !== null);
 
+
+  let lmdlp = navTab.querySelector("#lmdlp-tab").parentNode;
+  let urban = navTab.querySelector("#urban-tab").parentNode;
+  let sdc = navTab.querySelector("#sdc-tab").parentNode;
+  let makabi = navTab.querySelector("#makabi-tab").parentNode;
+  let holmes = navTab.querySelector("#holmes-tab").parentNode;
+  let mystery = navTab.querySelector("#mystery-tab").parentNode;
+
   async function Reset(){
     let items = dropdown.querySelectorAll("li");
     dropdown.innerHTML = "";
@@ -16,7 +24,6 @@ async function Redim() {
     await Reset();
   } else if (window.matchMedia("(min-width: 1200px)").matches) {
     await Reset();
-    let lmdlp = navTab.querySelector("#lmdlp-tab").parentNode;
     dropdown.innerHTML = `
       <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Autres </a>
       <ul class="dropdown-menu bg-dark">
@@ -25,9 +32,6 @@ async function Redim() {
     lmdlp.parentNode.removeChild(lmdlp);
   } else if (window.matchMedia("(min-width: 992px)").matches) {
     await Reset();
-    let lmdlp = navTab.querySelector("#lmdlp-tab").parentNode;
-    let urban = navTab.querySelector("#urban-tab").parentNode;
-    let sdc = navTab.querySelector("#sdc-tab").parentNode;
     dropdown.innerHTML = `
       <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Autres </a>
       <ul class="dropdown-menu bg-dark">
@@ -40,10 +44,6 @@ async function Redim() {
     sdc.parentNode.removeChild(sdc);
   } else if (window.matchMedia("(min-width: 768px)").matches) {
     await Reset();
-    let lmdlp = navTab.querySelector("#lmdlp-tab").parentNode;
-    let urban = navTab.querySelector("#urban-tab").parentNode;
-    let sdc = navTab.querySelector("#sdc-tab").parentNode;
-    let makabi = navTab.querySelector("#makabi-tab").parentNode;
     dropdown.innerHTML = `
       <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Autres </a>
       <ul class="dropdown-menu bg-dark">
@@ -58,12 +58,6 @@ async function Redim() {
     makabi.parentNode.removeChild(makabi);
   } else if (window.matchMedia("(min-width: 576px)").matches) {
     await Reset();
-    let lmdlp = navTab.querySelector("#lmdlp-tab").parentNode;
-    let urban = navTab.querySelector("#urban-tab").parentNode;
-    let sdc = navTab.querySelector("#sdc-tab").parentNode;
-    let makabi = navTab.querySelector("#makabi-tab").parentNode;
-    let holmes = navTab.querySelector("#holmes-tab").parentNode;
-    let mystery = navTab.querySelector("#mystery-tab").parentNode;
     dropdown.innerHTML = `
       <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Autres </a>
       <ul class="dropdown-menu bg-dark">
