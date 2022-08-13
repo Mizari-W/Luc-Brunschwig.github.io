@@ -863,7 +863,7 @@
         localStorage['theme'] = theme;
         let body = document.querySelector("body");
         let nav = document.querySelector("nav");
-        let navButton = nav.querySelectorAll("button")[1];
+        let navButton = nav.querySelector(".btn");
         let dividers = document.querySelectorAll(".divider-custom-line");
         let modals = document.querySelectorAll(".modal-content");
         let interview = document.querySelector("#Interview");
@@ -874,34 +874,38 @@
           body.setAttribute("class", "bg-dark text-white");
           nav.setAttribute("class", "navbar navbar-expand-lg bg-light fixed-top text-uppercase");
           navButton.setAttribute("class", "btn btn-outline-dark");
+          navButton.innerHTML = '<i class="fa-solid fa-jedi"></i>';
           interview.setAttribute("class", "rounded interview interview-dark");
           story.setAttribute("class", "rounded interview interview-dark");
-          dropdownMenu.setAttribute("class", "dropdown-menu bg-dark");
-          dropdownMenu.querySelectorAll("button").forEach(button => {
-            button.setAttribute("class", `dropdown-item text-white ${button.getAttribute("class").includes("active")?"active":""}`);
-          });
-          navButton.innerHTML = '<i class="fa-solid fa-jedi"></i>';
           dividers.forEach(divider => divider.setAttribute("class", "divider-custom-line divider-light"));
           modals.forEach(modal => {
             modal.setAttribute("class", "modal-content bg-dark");
             modal.querySelector(".btn-close").setAttribute("class", "btn-close btn-close-white");
           });
+          if (dropdownMenu) {
+            dropdownMenu.setAttribute("class", "dropdown-menu bg-dark");
+            dropdownMenu.querySelectorAll("button").forEach(button => {
+              button.setAttribute("class", `dropdown-item text-white ${button.getAttribute("class").includes("active")?"active":""}`);
+            });
+          }
         } else {
           body.setAttribute("class", "bg-light");
           nav.setAttribute("class", "navbar navbar-dark navbar-expand-lg bg-dark fixed-top text-uppercase text-white");
           navButton.setAttribute("class", "btn btn-outline-light");
+          navButton.innerHTML = '<i class="fa-brands fa-sith"></i>';
           interview.setAttribute("class", "rounded interview interview-light");
           story.setAttribute("class", "rounded interview interview-light");
-          dropdownMenu.setAttribute("class", "dropdown-menu bg-light");
-          dropdownMenu.querySelectorAll("button").forEach(button => {
-            button.setAttribute("class", `dropdown-item ${button.getAttribute("class").includes("active")?"active":""}`);
-          });
-          navButton.innerHTML = '<i class="fa-brands fa-sith"></i>';
           dividers.forEach(divider => divider.setAttribute("class", "divider-custom-line divider-dark"));
           modals.forEach(modal => {
             modal.setAttribute("class", "modal-content bg-light");
             modal.querySelector(".btn-close").setAttribute("class", "btn-close");
           });
+          if (dropdownMenu) {
+            dropdownMenu.setAttribute("class", "dropdown-menu bg-light");
+            dropdownMenu.querySelectorAll("button").forEach(button => {
+              button.setAttribute("class", `dropdown-item ${button.getAttribute("class").includes("active")?"active":""}`);
+            });
+          }
         }
 
         navbarCollapse();
