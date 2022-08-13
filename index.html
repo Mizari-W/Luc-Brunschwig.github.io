@@ -32,8 +32,11 @@
   <body class="bg-dark text-white">
     <nav class="navbar navbar-expand-lg bg-light fixed-top text-uppercase" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#">
+        <a class="navbar-brand js-scroll-trigger" onclick="ShowEasterEgg()" style="margin-right: 10px;" href="#">
           <i class="fa-brands fa-galactic-senate"></i>
+        </a>
+        <a class="navbar-brand js-scroll-trigger" href="#">
+          <!-- <i class="fa-brands fa-galactic-senate"></i> -->
           Sith web
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,7 +63,10 @@
     </nav>
 
     <div class="container">
-      <section>
+      <section class="position-relative">
+        <img class="light-arrow position-absolute cross-egg visually-hidden" src="images/croix.png" alt="croix">
+        <img class="light-arrow position-absolute arrow-egg visually-hidden" src="images/fleche.png" alt="flèche">
+        <h2 class="position-absolute title-egg visually-hidden">Luke</h2>
         <h1 class="text-center">Sith web de Luc</h1>
         <div class="divider-custom">
           <div class="divider-custom-line divider-light"></div>
@@ -939,6 +945,24 @@
           }
         })
       });
+    </script>
+    <script type="text/javascript">
+      function ShowEasterEgg() {
+        let hiddenEl = document.querySelectorAll(".visually-hidden");
+        let shownEl = document.querySelectorAll(".visually-show");
+
+        if (hiddenEl.length > 0){
+          hiddenEl.forEach(el => {
+            el.classList.remove("visually-hidden");
+            el.classList.add("visually-show");
+          });
+        } else if (shownEl.length > 0){
+          shownEl.forEach(el => {
+            el.classList.remove("visually-show");
+            el.classList.add("visually-hidden");
+          });
+        }
+      }
     </script>
   </body>
 </html>

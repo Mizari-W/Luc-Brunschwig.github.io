@@ -181,6 +181,25 @@ p{
   /* margin: 0px 0px 0px -10px; */
 }
 
+.light-arrow{
+  filter: invert(1);
+}
+.arrow-egg{
+  width: 50px;
+  transform: rotate(150deg);
+  right: 440px;
+  top: 105px;
+}
+.title-egg{
+  top: 145px;
+  right: 360px;
+  transform: rotate(35deg);
+}
+.cross-egg{
+  width: 80px;
+  top: 85px;
+  right: 500px
+}
 
 
 
