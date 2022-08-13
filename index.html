@@ -64,8 +64,8 @@
 
     <div class="container">
       <section class="position-relative">
-        <img class="light-arrow position-absolute cross-egg visually-hidden" src="images/croix.png" alt="croix">
-        <img class="light-arrow position-absolute arrow-egg visually-hidden" src="images/fleche.png" alt="flèche">
+        <img class="light-egg position-absolute cross-egg visually-hidden" src="images/croix.png" alt="croix">
+        <img class="light-egg position-absolute arrow-egg visually-hidden" src="images/fleche.png" alt="flèche">
         <h2 class="position-absolute title-egg visually-hidden">Luke</h2>
         <h1 class="text-center">Sith web de Luc</h1>
         <div class="divider-custom">
@@ -873,6 +873,8 @@
         let dropdownMenu = document.querySelector("#StoryTab").querySelector(".dropdown-menu");
         let popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
         let popovers = document.querySelectorAll(".popover");
+        let lightEggs = document.querySelectorAll(".light-egg");
+        let darkEggs = document.querySelectorAll(".dark-egg");
 
         if (theme === "darkTheme"){
           body.setAttribute("class", "bg-dark text-white");
@@ -898,7 +900,12 @@
           popovers.forEach(popover => {
             popover.setAttribute("class", "popover light-popover bs-popover-auto fade show");
           });
-
+          if (darkEggs.length > 0) {
+            darkEggs.forEach(egg => {
+              egg.classList.remove("dark-egg");
+              egg.classList.add("light-egg");
+            });
+          }
 
         } else {
           body.setAttribute("class", "bg-light");
@@ -924,6 +931,12 @@
           popovers.forEach(popover => {
             popover.setAttribute("class", "popover dark-popover bs-popover-auto fade show");
           });
+          if (lightEggs.length > 0) {
+            lightEggs.forEach(egg => {
+              egg.classList.remove("light-egg");
+              egg.classList.add("dark-egg");
+            });
+          }
         }
 
         navbarCollapse();
