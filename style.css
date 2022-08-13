@@ -138,6 +138,22 @@ p{
   border-bottom: 1px solid!important;
 }
 
+.dropdown-item.active, .dropdown-item:focus{
+  background-color: transparent;
+  color: #212529;
+  border: 1px solid;
+}
+.dropdown-item:hover{
+  background-color: #E9ECEF;
+}
+
+.dropdown-item.text-white.active{
+  background-color: rgb(33,37,41);
+  border: 1px solid;
+}
+.dropdown-item.text-white:hover, .dropdown-item.text-white:focus{
+  background-color: rgb(108,117,125);
+}
 
 
 
