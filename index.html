@@ -1145,7 +1145,6 @@
         let images = document.querySelectorAll(".interview-img-left, .interview-img-right");
 
         images.forEach(image => {
-          console.log(image.getAttribute("src"));
           image.setAttribute("onclick", `window.open("${image.getAttribute("src")}", '_blank').focus()`);
         });
 
