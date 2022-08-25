@@ -31,7 +31,6 @@ p{
   width: 300px;
 }
 #LukeImg{
-  left: 225px;
   transform: rotate(350deg);
 }
 @media screen and (max-width: 991px) {
@@ -190,18 +189,12 @@ p{
 .arrow-egg{
   width: 50px;
   transform: rotate(150deg);
-  right: 440px;
-  top: 105px;
 }
 .title-egg{
-  top: 145px;
-  right: 360px;
   transform: rotate(35deg);
 }
 .cross-egg{
   width: 80px;
-  top: 85px;
-  right: 500px
 }
 .Luke-egg{
   position: absolute;
@@ -211,6 +204,95 @@ p{
   padding: 5px;
 }
 
+@media (min-width: 576px){
+  .arrow-egg{
+    top: 105px;
+    right: 75px;
+  }
+  .title-egg{
+    top: 151px;
+    right: 5px;
+  }
+  .cross-egg{
+    top: 78px;
+    right: 122px;
+  }
+  #LukeImg{
+    right: 0px;
+  }
+}
+
+@media (min-width: 768px){
+  .arrow-egg{
+    right: 151px;
+    top: 105px;
+  }
+  .title-egg{
+    top: 151px;
+    right: 74px;
+  }
+  .cross-egg{
+    top: 85px;
+    right: 207px;
+  }
+  #LukeImg{
+    right: 0px;
+  }
+}
+
+@media (min-width: 992px){
+  .arrow-egg{
+    right: 260px;
+    top: 105px;
+  }
+  .title-egg{
+    top: 160px;
+    right: 180px;
+  }
+  .cross-egg{
+    top: 85px;
+    right: 320px;
+  }
+  #LukeImg{
+    left: 75px;
+  }
+}
+
+@media (min-width: 1200px){
+  .arrow-egg{
+    right: 350px;
+    top: 105px;
+  }
+  .title-egg{
+    top: 145px;
+    right: 270px;
+  }
+  .cross-egg{
+    top: 85px;
+    right: 405px;
+  }
+  #LukeImg{
+    left: 150px;
+  }
+}
+
+@media (min-width: 1400px){
+  .arrow-egg{
+    right: 440px;
+    top: 105px;
+  }
+  .title-egg{
+    top: 145px;
+    right: 360px;
+  }
+  .cross-egg{
+    top: 85px;
+    right: 500px;
+  }
+  #LukeImg{
+    left: 225px;
+  }
+}
 
 
 
