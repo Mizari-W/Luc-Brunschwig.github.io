@@ -84,7 +84,7 @@ lucReq.onreadystatechange = async function(e) {
                   }
                   // récupération du titre de la BD (et j'vire les espèces de blanc bizarre 🤔)
                   let name = albumMain.querySelector(".titre").querySelector("span").innerText.split(".");
-                  BD.name = name[name.length-1].replace(/^\s*|\s*$/g, "");
+                  BD.name = name[name.length-1].trim();
                   // récupération de la couv'
                   BD.img = listBDs[i].querySelector(".couv").querySelector("img").getAttribute("src");
                   // récupération de la note
