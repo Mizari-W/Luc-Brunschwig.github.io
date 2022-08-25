@@ -9,6 +9,9 @@ a{
 p{
   text-align: justify;
 }
+#BD p{
+  text-align: center;
+}
 
 #Resaux{
   height: 100px;

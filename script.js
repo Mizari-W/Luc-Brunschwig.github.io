@@ -84,7 +84,7 @@ lucReq.onreadystatechange = async function(e) {
                   }
                   // récupération du titre de la BD (et j'vire les espèces de blanc bizarre 🤔)
                   let name = albumMain.querySelector(".titre").querySelector("span").innerText.split(".");
-                  BD.name = name[name.length-1].replace(/\s*/g, "");
+                  BD.name = name[name.length-1].replace(/^\s*|\s*$/g, "");
                   // récupération de la couv'
                   BD.img = listBDs[i].querySelector(".couv").querySelector("img").getAttribute("src");
                   // récupération de la note
@@ -151,19 +151,19 @@ async function ShowBDs(series) {
           <div class="modal-body text-center">
             <h1 class="modal-title" id="staticBackdropLabel">${series[i].name}</h1>
             <div class="divider-custom">
-              <div class="divider-custom-line"></div>
+              <div class="divider-custom-line ${(localStorage['theme'] === "darkTheme"?"divider-light":"divider-dark")}"></div>
               <div class="divider-custom-icon"><i class="fa-solid fa-book-open"></i></div>
-              <div class="divider-custom-line"></div>
+              <div class="divider-custom-line ${(localStorage['theme'] === "darkTheme"?"divider-light":"divider-dark")}"></div>
             </div>
             <a href="${series[i].link}" rel="nofollow" target="_blank">
               <img class="modal-img rounded" src="${series[i].img}" alt="${series[i].name}">
             </a>
 
-            <h2 class="mt-3">BDs de la série</h2>
+            <h2 class="mt-5">BDs de la série</h2>
             <div class="divider-custom">
-              <div class="divider-custom-line"></div>
+              <div class="divider-custom-line ${(localStorage['theme'] === "darkTheme"?"divider-light":"divider-dark")}"></div>
               <div class="divider-custom-icon"><i class="fa-solid fa-book-open"></i></div>
-              <div class="divider-custom-line"></div>
+              <div class="divider-custom-line ${(localStorage['theme'] === "darkTheme"?"divider-light":"divider-dark")}"></div>
             </div>
 
             <div class="BDs">
