@@ -1048,6 +1048,9 @@
         let popovers = document.querySelectorAll(".popover");
         let lightEggs = document.querySelectorAll(".light-egg");
         let darkEggs = document.querySelectorAll(".dark-egg");
+        let lightLink = document.querySelector(".link-light");
+        let darkLink = document.querySelector(".link-dark");
+
 
         if (theme === "darkTheme"){
           body.setAttribute("class", "bg-dark text-white");
@@ -1079,7 +1082,7 @@
               egg.classList.add("light-egg");
             });
           }
-
+          darkLink.setAttribute("class", "link-light");
         } else {
           body.setAttribute("class", "bg-light");
           nav.setAttribute("class", "navbar navbar-dark navbar-expand-lg bg-dark fixed-top text-uppercase text-white");
@@ -1110,6 +1113,7 @@
               egg.classList.add("dark-egg");
             });
           }
+          lightLink.setAttribute("class", "link-dark");
         }
 
         navbarCollapse();
